@@ -1,114 +1,163 @@
-$colors: (
-    primary: #005DFF,
-    primary-light: lighten(#005DFF, 40%),
-    primary-dark: darken(#005DFF, 40%),
-    secondary: #FFF6BB
-);
+    $colors: (
+        primary: #005DFF,
+        primary-light: lighten(#005DFF, 40%),
+        primary-dark: darken(#005DFF, 40%),
+        secondary: #FFF6BB
+    );
 
-$padding: (
-    some: 15px,
-    more: 30px
-);
+    $padding: (
+        some: 15px,
+        more: 30px
+    );
 
 
 
-@function color($color-name){
-    @return map-get($colors, $color-name);
-}
-
-@function padding($padding-size){
-    @return map-get($padding, $padding-size);
-}
-
-body, html{
-    height: 100%;
-}
-
-body{
-    font-family: 'Montserrat';
-    margin: 0;
-
-    #bg{
-        clip-path: polygon(100% 0, 100% 85%, 50% 100%, 0 100%, 0 0);
-        background-color: color(primary);
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        z-index: -1;
-
+    @function color($color-name){
+        @return map-get($colors, $color-name);
     }
-    header a{
-        color: #fff;
-        text-decoration: none;
-        padding: padding(some);
-        display: block;
-        text-transform: uppercase;
+
+    @function padding($padding-size){
+        @return map-get($padding, $padding-size);
     }
-    
 
-}
-main{
-    section#card{
-        background: #fff;
-        padding: padding(more);
-        margin: 1em auto;
-        border-radius: padding(some);
-        box-shadow: 0 10px 30px rgba(0,0,0,.2);
-        width: 80%;
-    }
-    ul{
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
 
-        li{
-            margin-bottom: 10px;
+    //make it responsive with mixin now
 
-            span{
-                position: absolute;
-                width: 30px;
-                height: 30px;
-                background-color: color(primary-light);
-                border-radius: 50%;
-                margin-right: 10px;
-            }
-            strong{
-                display: inline-block;
-                margin-left: max(40px);
-                margin-top:10px;
-            }
+    $desktop: 840px;
+    @mixin desktop{
+        @media (min-width: #{$desktop}){
+            @content;
         }
     }
-section#primary{
-    color: #fff;
-    padding: padding(some);
-    text-align: center;
-}
 
-h1{
-    font-size: 3em;
-    margin-top: 10px;
-    text-transform: uppercase;
-}
+    body, html{
+        height: 100%;
+    }
 
-p{
-    font-size: 1.4em;
-}
+    body{
+        font-family: 'Montserrat';
+        margin: 0;
 
-a{
-    color: color(primary-dark);
-    border-radius: padding(some);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    background-color: color(secondary);
-    display: block;
-    text-align: center;
-    margin: 50px auto 0 auto;
-    padding: padding(some);
+        #bg{
+            clip-path: polygon(100% 0, 100% 85%, 50% 100%, 0 100%, 0 0);
+            background-color: color(primary);
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            z-index: -1;
+            
+
+            @include desktop{
+                clip-path: polygon(0 0, 75% 0, 55% 100%, 0% 100%);
+
+            }
+        }
+        header a{
+            color: #fff;
+            text-decoration: none;
+            padding: padding(some);
+            display: block;
+            text-transform: uppercase;
+        }
+        
+
+    }
+
+    main{
+        @include desktop{
+            display: grid;
+            grid-template-columns: 50% auto;
+            grid-template-areas: 
+            "primary card";
+
+        }
+        section#card{
+            background: #fff;
+            padding: padding(more);
+            margin: 1em auto;
+            border-radius: padding(some);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 80%;
+            
+            @include deskotp{
+                grid-area: card;
+                height: fit-content;
+                align-self: center;
+                margin: 1em;
+
+            }
+            ul{
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+        
+                li{
+                    margin-bottom: 10px;
+        
+                    span{
+                        position: absolute;
+                        width: 30px;
+                        height: 30px;
+                        background-color: color(primary-light);
+                        border-radius: 50%;
+                        margin-right: 10px;
+                    }
+                    strong{
+                        display: inline-block;
+                        margin-left: max(40px);
+                        margin-top:10px;
+                    }
+                }
+            }
+        }
+        
+    section#primary{
+        color: #fff;
+        padding: padding(some);
+        text-align: center;
+
+        @include deskotp{
+            grid-area: primary;
+            text-align: left;
+            margin: 4em 0 0 4em;
+        }
+
+        h1{
+            font-size: 3em;
+            margin-top: 10px;
+            text-transform: uppercase;
     
-}
-
+            @include desktop{
+                width: 30%;
+                font-size: 4em;
+                line-height: .9em;
+            }
+        }
+    
+        p{
+            font-size: 1.4em;
+        }
+    
+        a{
+            color: color(primary-dark);
+            border-radius: padding(some);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: color(secondary);
+            display: block;
+            text-align: center;
+            margin: 50px auto 0 auto;
+            padding: padding(some);
+    
+            @include desktop{
+                display: inline-block;
+                padding: padding(some);
+            }           
+            
+        }
+            
+    }
 }
 
 
