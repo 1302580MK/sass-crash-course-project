@@ -1,3 +1,7 @@
+# New Resources for Marc
+* [Bennetfeely](https://bennettfeely.com/clippy/)
+*[CanIuse](https://caniuse.com/)
+
 # Sass Crash Course Project
 
 This is the project based on the following tutorial:
